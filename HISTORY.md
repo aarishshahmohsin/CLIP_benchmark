@@ -1,5 +1,13 @@
 ## History
 
+### 1.6.2
+
+- Separate results from clip benchmark repo 
+- Update default output file to {dataset}_{pretrained}_{model}_{language}_{task}.json, otherwise same result.json file overwritten
+- Fix imagenetv2 dead urls
+- Add XTD_10 dataset
+- Fix issues (#131, #125, #138)
+
 ### 1.6.1
 
 * Fix missing sugar crepe example #119 thanks to @samarth4149
