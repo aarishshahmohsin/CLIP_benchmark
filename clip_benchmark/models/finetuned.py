@@ -13,6 +13,9 @@ from tqdm import tqdm
 import json
 import clip 
 import matplotlib.pyplot as plt
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
 
 # def load_clip_vit_b_32(model_name=None, pretrained=None, cache_dir=None, device="cuda"):
 #     model, preprocess = clip.load("ViT-B/16", device=device)
@@ -298,7 +301,10 @@ def load_clip_vit_b_32(model_name=None, pretrained=None, cache_dir=None, device=
     # projection_module = NullspaceProjection(dim=512)
     # projection_module.load_state_dict(torch.load('/home/aarish/VLM-superstition-analysis/models_final_debias/projection_module_aarish.pth', map_location=device))
     # load_nullspace_projection('/home/aarish/VLM-superstition-analysis/models_final_debias/projection_module_aarish.pth', device=device)
-    projection_module = load_nullspace_projection('/home/aarish/VLM-superstition-analysis/models_final_debias/projection_module_aarish_new.pth', device=device)
+    # projection_module = load_nullspace_projection('/home/aarish/VLM-superstition-analysis/models_final_debias/projection_module_aarish_new.pth', device=device)
+    projection_module_path = os.environ.get("PROJECTION_MODULE_PATH")
+    projection_module = load_nullspace_projection(projection_module_path, device=device)
+
     # projection_module = torch.load('/home/aarish/VLM-superstition-analysis/models_final_debias/projection_module_aarish.pth')
 
     debiased_model = CompensatedDebiasedSigLIP(
@@ -308,7 +314,9 @@ def load_clip_vit_b_32(model_name=None, pretrained=None, cache_dir=None, device=
         compensate_similarity=CONFIG["SIMILARITY_COMPENSATION"]
     ).to(device)
     
-    debiased_model.load_state_dict(torch.load('/home/aarish/VLM-superstition-analysis/models_final_debias/debiased_model_aarish.pth', map_location=device))
+    debiased_model_path = os.environ.get("DEBIASED_MODEL_PATH")
+    # debiased_model.load_state_dict(torch.load('/home/aarish/VLM-superstition-analysis/models_final_debias/debiased_model_aarish.pth', map_location=device))
+    debiased_model.load_state_dict(torch.load(debiased_model_path, map_location=device))
 
     return debiased_model, preprocess, tokenizer
 
