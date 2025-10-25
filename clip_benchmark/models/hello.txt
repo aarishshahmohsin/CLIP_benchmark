@@ -1,0 +1,12 @@
+python3 clip_benchmark/cli.py eval \
+  --model_type "model_finetuned" \
+  --dataset_root "https://huggingface.co/datasets/clip-benchmark/wds_{dataset_cleaned}/tree/main" \
+  --output "benchmark_{dataset}_{pretrained}_{model}_{language}_{task}.json"
+
+
+clip_benchmark eval --pretrained_model models.txt \
+    --model_type "model_finetuned" \
+    --dataset "webdatasets.txt" \
+    --dataset_root "https://huggingface.co/datasets/clip-benchmark/wds_{dataset_cleaned}/tree/main" \
+    --output "benchmark_{dataset}_{pretrained}_{model}_{language}_{task}.json" \
+    --num_workers 1
